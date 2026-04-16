@@ -1,12 +1,13 @@
 const express = require("express");
 const mongoose = require("mongoose");
-
+require('dotenv').config()
 const Listing = require("./models/Listing");
 const path = require("path");
 const app = express();
 
 
-const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
+const MONGO_URL = process.env.MONGO_URL;
+console.log(process.env.MONGO_URL)
 
 async function main() {
     await mongoose.connect(MONGO_URL);
