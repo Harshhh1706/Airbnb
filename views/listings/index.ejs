@@ -1,34 +1,148 @@
 <% layout("/layouts/boilerplate") %>
-<body>
-    <h3>
-        All Listings
-    </h3>
-   <!---- <form method="GET" action="/listings/new">
-        <button>
-            Create New Listing
-        </button>
-    </form> -->
-    <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
-        <% for(let listing of allListings) { %>
-            <a href="/listings/<%= listing._id %>" class="listing-link">
-            <div class="card col">
-               <img src="<%= listing.image.url %>" class="card-img-top" 
-               alt="listing_image" style="height: 20rem"/>
 
-               <div class="card-img-overlay"></div>
-                <div class="card-body">
-                  <p class="card-text">
-                    <b><%= listing.title %></b><br>
-                    &#8377; <%= listing.price.toLocaleString("en-IN") %> / night 
-                </div>
-              </div>
-              <% } %>
-        
+<div class="category-bar">
+
+    <a href="/listings?category=beach" class="category-item">
+        <i class="fa-solid fa-umbrella-beach"></i>
+        <span>Beach</span>
+    </a>
+
+    <a href="/listings?category=camping" class="category-item">
+        <i class="fa-solid fa-campground"></i>
+        <span>Camping</span>
+    </a>
+
+    <a href="/listings?category=mountain" class="category-item">
+        <i class="fa-solid fa-mountain"></i>
+        <span>Mountain</span>
+    </a>
+
+    <a href="/listings?category=farm" class="category-item">
+        <i class="fa-solid fa-house"></i>
+        <span>Farm</span>
+    </a>
+
+    <a href="/listings?category=city" class="category-item">
+        <i class="fa-solid fa-city"></i>
+        <span>City</span>
+    </a>
+
+    <a href="/listings?category=luxury" class="category-item">
+        <i class="fa-solid fa-gem"></i>
+        <span>Luxury</span>
+    </a>
+
+</div>
+
+<!-- Hero Section -->
+
+<div class="hero-section mb-4">
+
+    <h1>Explore Amazing Places</h1>
+
+    <p>
+        Discover unique stays, unforgettable experiences,
+        and your next adventure.
+    </p>
+
+</div>
+
+<!-- Statistics -->
+
+<div class="stats-container">
+
+    <div class="stat-card">
+        <h3><%= allListings.length %>+</h3>
+        <p>Listings</p>
     </div>
-   
-    
-    
-</body>
 
+    <div class="stat-card">
+        <h3>50+</h3>
+        <p>Destinations</p>
+    </div>
 
- 
+    <div class="stat-card">
+        <h3>4.9 ★</h3>
+        <p>Average Rating</p>
+    </div>
+
+    <div class="stat-card">
+        <h3>10K+</h3>
+        <p>Happy Guests</p>
+    </div>
+
+</div>
+
+<h2 class="fw-bold mb-4">
+    All Listings
+</h2>
+
+<% if(allListings.length===0){ %>
+
+<div class="text-center mt-5">
+
+    <h2>No Listings Found </h2>
+
+    <p class="text-muted">
+        Try another destination.
+    </p>
+
+</div>
+
+<% } %>
+
+<div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
+
+<% for(let listing of allListings){ %>
+
+<a href="/listings/<%= listing._id %>" class="listing-link">
+
+<div class="card col">
+
+<div class="position-relative">
+
+<span class="badge bg-danger position-absolute m-3">
+NEW
+</span>
+
+<img
+src="<%= listing.image.url %>"
+class="card-img-top"
+alt="listing image"
+style="height:20rem;"
+>
+
+</div>
+
+<div class="card-body">
+
+<h5 class="card-title">
+<%= listing.title %>
+</h5>
+
+<p class="text-muted">
+
+📍 <%= listing.location %>,
+<%= listing.country %>
+
+</p>
+
+<h5 class="price">
+
+₹ <%= listing.price.toLocaleString("en-IN") %>
+
+<span class="text-dark fs-6">
+/ night
+</span>
+
+</h5>
+
+</div>
+
+</div>
+
+</a>
+
+<% } %>
+
+</div>

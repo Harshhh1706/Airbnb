@@ -39,18 +39,16 @@ app.use(express.static(path.join(__dirname, "/public")));
 app.get("/", (req, res) => {
     res.send("Welcome to the Airbnb Project!");
 });
-
 const validateListing = (req, res, next) => {
-    let { error } = ListingSchema.validate(req.body.listing);
+    let { error } = ListingSchema.validate(req.body);
 
     if (error) {
         let errmsg = error.details.map(el => el.message).join(",");
         throw new ExpressError(errmsg, 400);
-    } else {
-        next();
     }
-};
 
+    next();
+};
 //Index route
 app.get("/listings", wrapAsync(async (req ,res ) => {
     const allListings = await Listing.find({});
@@ -90,16 +88,23 @@ app.get("/listings/:id/edit", wrapAsync(async (req, res) => {
 
 
 //create route
+// Create Route
 app.post(
     "/listings",
     validateListing,
     wrapAsync(async (req, res) => {
+
         let listing = req.body.listing;
 
-        listing.image = {
-            url: listing.image,
-            filename: "listingimage"
-        };
+        // If user doesn't enter an image URL, use the default image
+        if (!listing.image || !listing.image.url || listing.image.url.trim() === "") {
+            listing.image = {
+                filename: "listingimage",
+                url: "https://images.unsplash.com/photo-1761960083519-1edf2f46a807?q=80&w=686&auto=format&fit=crop"
+            };
+        } else {
+            listing.image.filename = "listingimage";
+        }
 
         const newListing = new Listing(listing);
         await newListing.save();
