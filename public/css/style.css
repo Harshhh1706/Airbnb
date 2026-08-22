@@ -282,3 +282,7 @@ body {
     color:#ff385c;
     font-weight:700;
 }
+
+.f-info{
+    cursor: pointer;
+}

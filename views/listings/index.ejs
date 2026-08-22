@@ -34,8 +34,6 @@
 
 </div>
 
-<!-- Hero Section -->
-
 <div class="hero-section mb-4">
 
     <h1>Explore Amazing Places</h1>
@@ -46,8 +44,6 @@
     </p>
 
 </div>
-
-<!-- Statistics -->
 
 <div class="stats-container">
 
@@ -73,76 +69,69 @@
 
 </div>
 
-<h2 class="fw-bold mb-4">
-    All Listings
-</h2>
+<h2 class="fw-bold mb-4">All Listings</h2>
 
-<% if(allListings.length===0){ %>
+<% if (allListings.length === 0) { %>
 
-<div class="text-center mt-5">
+    <div class="text-center mt-5">
 
-    <h2>No Listings Found </h2>
+        <h2>No Listings Found</h2>
 
-    <p class="text-muted">
-        Try another destination.
-    </p>
+        <p class="text-muted">
+            Try another destination.
+        </p>
 
-</div>
+    </div>
 
 <% } %>
 
 <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
 
-<% for(let listing of allListings){ %>
+    <% for (let listing of allListings) { %>
 
-<a href="/listings/<%= listing._id %>" class="listing-link">
+        <a href="/listings/<%= listing._id %>" class="listing-link">
 
-<div class="card col">
+            <div class="card col">
 
-<div class="position-relative">
+                <div class="position-relative">
 
-<span class="badge bg-danger position-absolute m-3">
-NEW
-</span>
+                    <span class="badge bg-danger position-absolute m-3">
+                        NEW
+                    </span>
 
-<img
-src="<%= listing.image.url %>"
-class="card-img-top"
-alt="listing image"
-style="height:20rem;"
->
+                    <img
+                        src="<%= listing.image.url %>"
+                        class="card-img-top"
+                        alt="Listing Image"
+                        style="height: 20rem;"
+                    >
 
-</div>
+                </div>
 
-<div class="card-body">
+                <div class="card-body">
 
-<h5 class="card-title">
-<%= listing.title %>
-</h5>
+                    <h5 class="card-title">
+                        <%= listing.title %>
+                    </h5>
 
-<p class="text-muted">
+                    <p class="text-muted">
+                        <%= listing.location %>, <%= listing.country %>
+                    </p>
 
-📍 <%= listing.location %>,
-<%= listing.country %>
+                    <h5 class="price">
+                        ₹ <%= listing.price.toLocaleString("en-IN") %>
 
-</p>
+                        <span class="text-dark fs-6">
+                            / night
+                        </span>
+                    </h5>
 
-<h5 class="price">
+                </div>
 
-₹ <%= listing.price.toLocaleString("en-IN") %>
+            </div>
 
-<span class="text-dark fs-6">
-/ night
-</span>
+        </a>
 
-</h5>
-
-</div>
-
-</div>
-
-</a>
-
-<% } %>
+    <% } %>
 
 </div>
